@@ -1,0 +1,25 @@
+version: '3'
+services:
+  # notebook
+  jupiter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/home/jovyan/
+    ports:
+      - "10000:8888"
+  # postgres
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: JE009A
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+volumes:
+  pgdata:
